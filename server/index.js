@@ -4,6 +4,7 @@ const mongoose = require("mongoose")
 const cors = require("cors")
 const CardRouter = require("./router/CardRouter.js");
 const WordRouter = require("./router/WordRouter.js");
+const UserRouter = require("./router/UserRouter.js");
 
 
 dotenv.config()
@@ -15,6 +16,7 @@ app.use(cors())
 app.use(express.json())
 app.use("/cards", CardRouter);
 app.use("/words", WordRouter);
+app.use("/users", UserRouter);
 
 // connection to the database
 app.listen(5000, () => {

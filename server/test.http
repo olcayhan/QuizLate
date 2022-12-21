@@ -52,3 +52,20 @@ Content-Type: application/json
     "id" : "63850b8521ba3a4a9b12e79a"
 }
 ###
+
+POST  http://localhost:5000/users/signup
+Content-Type: application/json
+
+{
+    "email": "user@example.com",
+    "password": "password"
+}
+###
+POST  http://localhost:5000/users/signin
+Content-Type: application/json
+
+{
+    "email": "user@example.com",
+    "password": "password"
+}
+###
