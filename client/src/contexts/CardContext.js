@@ -1,5 +1,5 @@
 import React, { useContext, useState, useEffect } from "react";
-import { addCardtoDB, getCardtoDB, deleteCardtoDB, addWordtoDB, getWordtoDB, deleteWordtoDB, deleteAllWordstoDB } from "../axios";
+import { addCardtoDB, getCardtoDB, deleteCardtoDB, addWordtoDB, getWordtoDB, deleteWordtoDB, deleteAllWordstoDB, setSignintoDB } from "../axios";
 
 
 
@@ -59,7 +59,7 @@ export const CardProvider = ({ children }) => {
             .then(res => console.log(res))
             .catch((e) => console.log(e))
 
-            
+
         setRender(true);
     }
 
@@ -81,6 +81,11 @@ export const CardProvider = ({ children }) => {
     function getWords(cardID) {
         return words.filter(word => word.cardID === cardID)
     }
+    function setSignin(formData) {
+        setSignintoDB(formData)
+            .then((res) => { console.log(res) })
+            .catch((err) => { console.log(err) });
+    }
 
     return <CardContext.Provider value={{
         addCard,
@@ -88,6 +93,7 @@ export const CardProvider = ({ children }) => {
         addWords,
         deleteWords,
         getWords,
+        setSignin,
         cards,
         words
     }}>

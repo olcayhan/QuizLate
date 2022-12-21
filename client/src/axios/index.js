@@ -37,3 +37,9 @@ export async function deleteAllWordstoDB(id) {
     return await HTTP.post("/words/deleteallword", id);
 
 }
+
+export async function setSignintoDB(formData) {
+
+    return await HTTP.post("/users/signin", formData);
+
+}
