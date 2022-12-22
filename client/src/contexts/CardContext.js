@@ -1,5 +1,5 @@
 import React, { useContext, useState, useEffect } from "react";
-import { addCardtoDB, getCardtoDB, deleteCardtoDB, addWordtoDB, getWordtoDB, deleteWordtoDB, deleteAllWordstoDB, setSignintoDB } from "../axios";
+import { addCardtoDB, getCardtoDB, deleteCardtoDB, addWordtoDB, getWordtoDB, deleteWordtoDB, deleteAllWordstoDB, setSignintoDB, setSignuptoDB } from "../axios";
 
 
 
@@ -14,7 +14,9 @@ export function useCards() {
 export const CardProvider = ({ children }) => {
     const [cards, setCards] = useState([])
     const [words, setWords] = useState([])
-
+    const [userID, setUserID] = useState(localStorage.getItem("userID"))
+    const [loginUser, setLoginUser] = useState(localStorage.getItem("login"))
+    console.log(userID)
     const [isRender, setRender] = useState(false)
     useEffect(() => {
 
@@ -41,8 +43,35 @@ export const CardProvider = ({ children }) => {
 
     // console.log(words)
 
-    function addCard({ name, desc }) {
-        addCardtoDB({ name, desc })
+
+    /*  ----------------------------- SIGN IN AND OUT ----------------------- */
+
+
+    function setSignin(formData) {
+        setSignintoDB(formData)
+            .then((res) => {
+                localStorage.setItem("userID", res.data.user._id);
+                localStorage.setItem("login", true);
+                setLoginUser(true)
+                setUserID(res.data.user._id)
+
+
+            })
+            .catch((err) => { console.log(err) });
+    }
+    function setSignup(formData) {
+        setSignuptoDB(formData)
+            .then((res) => { alert(res.data.message) })
+            .catch((err) => { console.log(err) });
+
+    }
+
+
+
+
+
+    function addCard(formData) {
+        addCardtoDB(formData)
             .then((res) => console.log(res))
             .catch((e) => console.log(e))
         setRender(true);
@@ -63,8 +92,8 @@ export const CardProvider = ({ children }) => {
         setRender(true);
     }
 
-    function addWords({ turkish, english, cardID }) {
-        addWordtoDB({ turkish, english, cardID })
+    function addWords(formData) {
+        addWordtoDB(formData)
             .then(res => console.log(res))
             .catch(err => console.log(err))
         setRender(true);
@@ -81,11 +110,7 @@ export const CardProvider = ({ children }) => {
     function getWords(cardID) {
         return words.filter(word => word.cardID === cardID)
     }
-    function setSignin(formData) {
-        setSignintoDB(formData)
-            .then((res) => { console.log(res) })
-            .catch((err) => { console.log(err) });
-    }
+
 
     return <CardContext.Provider value={{
         addCard,
@@ -94,6 +119,10 @@ export const CardProvider = ({ children }) => {
         deleteWords,
         getWords,
         setSignin,
+        setSignup,
+        setLoginUser,
+        userID,
+        loginUser,
         cards,
         words
     }}>

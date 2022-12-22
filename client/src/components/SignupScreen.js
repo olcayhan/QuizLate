@@ -2,13 +2,14 @@ import React, { useState } from 'react'
 import { Container } from 'react-bootstrap'
 import { useCards } from '../contexts/CardContext'
 
+
+
 export default function SignupScreen() {
 
 
-   // TODO : PASSWORD VALIDATION 
+    // TODO : PASSWORD VALIDATION 
 
-
-    const { setSignin } = useCards();
+    const { setSignup } = useCards();
 
     const [user, setUser] = useState(
         {
@@ -16,10 +17,15 @@ export default function SignupScreen() {
             password: ""
         }
     )
-    console.log(user)
+
+
+
     return (
         <Container className="form-signin w-25">
-            <form onSubmit={() => { setSignin(user) }}>
+            <form onSubmit={(e) => {
+                e.preventDefault()
+                setSignup(user)
+            }}>
                 <div className="form-group">
                     <label htmlFor="exampleInputEmail1">Email address</label>
                     <input type="email" className="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email"
@@ -31,11 +37,10 @@ export default function SignupScreen() {
                         onChange={(e) => { setUser({ ...user, password: e.target.value }) }} />
                 </div>
 
-                <div className="form-group mt-2">
+                {/* <div className="form-group mt-2">
                     <label htmlFor="exampleInputPassword1">Password Again</label>
-                    <input type="password" className="form-control" id="exampleInputPassword1" placeholder="Password"
-                        onChange={(e) => { setUser({ ...user, password: e.target.value }) }} />
-                </div>
+                    <input type="password" className="form-control" id="exampleInputPassword1" placeholder="Password" ref={passRef} />
+                </div> */}
 
 
                 <button type="submit" className="btn btn-primary mt-2 w-100">Submit</button>

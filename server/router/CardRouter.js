@@ -5,11 +5,12 @@ const router = express.Router()
 router.post("/addcard", async (req, res) => {
     try {
         console.log(req.body);
-        const { name, desc } = req.body;
+        const { name, desc, userID } = req.body;
 
         const createdCard = await Card.create({
             name,
-            desc
+            desc,
+            userID
         })
         return res.status(201).json(createdCard)
     } catch (err) {

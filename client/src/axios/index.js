@@ -43,3 +43,9 @@ export async function setSignintoDB(formData) {
     return await HTTP.post("/users/signin", formData);
 
 }
+
+export async function setSignuptoDB(formData) {
+
+    return await HTTP.post("/users/signup", formData);
+
+}

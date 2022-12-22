@@ -1,21 +1,28 @@
 import React, { useState } from 'react'
 import { Container } from 'react-bootstrap'
 import { useCards } from '../contexts/CardContext'
+import { useNavigate } from "react-router-dom"
+
 
 export default function AuthScreen() {
 
-    const { setSignin } = useCards();
-
+    const { setSignin, loginUser } = useCards();
+    const navigate = useNavigate()
     const [user, setUser] = useState(
         {
             email: "",
             password: ""
         }
     )
-    console.log(user)
+    console.log("hello")
+    loginUser && navigate("/card")
+
     return (
         <Container className="form-signin w-25">
-            <form onSubmit={() => { setSignin(user) }}>
+            <form onSubmit={(e) => {
+                e.preventDefault()
+                setSignin(user)
+            }}>
                 <div className="form-group">
                     <label htmlFor="exampleInputEmail1">Email address</label>
                     <input type="email" className="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email"

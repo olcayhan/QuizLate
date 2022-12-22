@@ -5,7 +5,7 @@ import { useCards } from '../contexts/CardContext'
 export default function AddCards({ show, handleClose }) {
     const nameRef = useRef()
     const descRef = useRef()
-    const { addCard } = useCards()
+    const { addCard, userID } = useCards()
 
     function handleSubmit(e) {
         e.preventDefault();
@@ -13,6 +13,7 @@ export default function AddCards({ show, handleClose }) {
             {
                 name: nameRef.current.value,
                 desc: descRef.current.value,
+                userID: userID,
             }
         )
         handleClose()

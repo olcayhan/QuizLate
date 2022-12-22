@@ -11,6 +11,10 @@ const cardSchema = mongoose.Schema({
     desc: {
         type: String,
         required: true
+    },
+    userID: {
+        type: String,
+        required: true
     }
 }, { collection: "cards" })
 module.exports = mongoose.model("Card", cardSchema)
